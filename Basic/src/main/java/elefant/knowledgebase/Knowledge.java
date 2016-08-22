@@ -1,4 +1,4 @@
-package elefant.knoqlwdgebase;
+package elefant.knowledgebase;
 
 
 import java.util.ArrayList;

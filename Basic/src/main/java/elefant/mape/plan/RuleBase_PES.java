@@ -6,8 +6,8 @@ import org.json.*;
 
 import com.mongodb.client.FindIterable;
 
-import elefant.knoqlwdgebase.Configuration;
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Configuration;
+import elefant.knowledgebase.Knowledge;
 
 public class RuleBase_PES {
 

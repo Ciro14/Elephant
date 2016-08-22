@@ -1,6 +1,6 @@
 package elefant.evolution;
 
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Knowledge;
 
 public class RuleManager {
 

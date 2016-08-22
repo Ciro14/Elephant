@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Knowledge;
 
 public class SatisfactionCheck {
 

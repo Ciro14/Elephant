@@ -1,6 +1,6 @@
 package elefant.mape.plan;
 
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Knowledge;
 
 public class Planner {
 

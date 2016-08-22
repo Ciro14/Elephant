@@ -10,7 +10,7 @@ import org.json.JSONTokener;
 
 import com.mongodb.client.FindIterable;
 
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Knowledge;
 
 public class Environment_State_Space {
 

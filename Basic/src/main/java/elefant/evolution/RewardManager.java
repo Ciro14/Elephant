@@ -2,7 +2,7 @@ package elefant.evolution;
 
 import java.util.Hashtable;
 
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Knowledge;
 
 public class RewardManager {
 

@@ -3,7 +3,7 @@ package elefant.mape.analyzer;
 import java.util.Hashtable;
 import elefant.evolution.RewardManager;
 import elefant.evolution.RuleManager;
-import elefant.knoqlwdgebase.Knowledge;
+import elefant.knowledgebase.Knowledge;
 import elefant.mape.Execution.Executor;
 import elefant.mape.plan.Planner;
 
