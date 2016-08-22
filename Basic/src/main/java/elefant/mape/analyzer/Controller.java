@@ -9,6 +9,7 @@ import elefant.mape.plan.Planner;
 
 public class Controller {
 
+	
 	static String restapi_reconfig = "http://10.8.100.124:5004/model";
 	
 	static int analysis_delay = 60000; // time to delay and check again in milliseconds
