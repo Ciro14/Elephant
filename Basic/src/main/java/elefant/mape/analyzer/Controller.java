@@ -23,7 +23,6 @@ public class Controller {
 		knowledge.clear_measurements();		
 		knowledge.clear_rewards();
 		
-		
 		//MAPE components
 		SatisfactionCheck req_satisfaction = new SatisfactionCheck(knowledge,valid_time_window);
 		Planner planner = new Planner(valid_time_window);
