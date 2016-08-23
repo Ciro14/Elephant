@@ -5,8 +5,8 @@ import java.util.List;
 public class KnowledgePruner {
 
 	public static void main(String[] args) {
-		String pathFM = "./fms/original.fm";
-		String pathFM_evo = "./fms/evo.fm";
+		String pathFM = "./src/main/java/elefant/FMevolution/original.fm";
+		String pathFM_evo = "./src/main/java/elefant/FMevolution/evo.fm";
 		List<List<String>> productsFM = FeatureModelManager.getAllProducts(pathFM);
 		List<List<String>> productsFM_evo = FeatureModelManager.getAllProducts(pathFM_evo);
 		List<List<String>> invalidConfigurations = FeatureModelManager.getInvalidConfigurations(productsFM, productsFM_evo);
