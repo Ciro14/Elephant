@@ -10,7 +10,7 @@
     <name>analyzer</name>
 
     <build>
-        <finalName>analyzer</finalName>
+        <finalName>Elephant</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
