@@ -47,9 +47,9 @@ public class MongoManager {
 		db = mongoClient.getDatabase(DB_NAME);
 		evo_db = mongoClient.getDatabase(DB_NAME + "_evo");
 		
-		mutable_db = evo_db;
+		mutable_db = db;
 		
-//		copyDatabase(db, evo_db);
+		copyDatabase(db, evo_db);
 	}
 	
 	private FindIterable<Document> getAllElements(String tableName) {
