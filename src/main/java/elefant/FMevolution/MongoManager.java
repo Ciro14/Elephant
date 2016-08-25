@@ -2,10 +2,8 @@ package elefant.FMevolution;
 
 import static java.util.Arrays.asList;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.bson.Document;
@@ -14,17 +12,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
-import es.us.isa.FAMA.Reasoner.Question;
-import es.us.isa.FAMA.Reasoner.QuestionTrader;
-import es.us.isa.FAMA.Reasoner.questions.ProductsQuestion;
-import es.us.isa.FAMA.Reasoner.questions.ValidProductQuestion;
-import es.us.isa.FAMA.models.featureModel.GenericFeature;
-import es.us.isa.FAMA.models.featureModel.GenericFeatureModel;
-import es.us.isa.FAMA.models.featureModel.Product;
-import es.us.isa.FAMA.models.variabilityModel.GenericProduct;
 
 
 public class MongoManager {
@@ -36,10 +24,7 @@ public class MongoManager {
 	private MongoClient mongoClient;
 	
 	private final String RULES = "rules";
-	private final String METRICS = "metrics_mode";
 	private final String REWARDS = "rewards";	
-	private final String RETIRED_RULES = "retired_rules";
-	private final String RETIRED_METRICS = "retired_metrics_mode";
 	
 	public MongoManager() {
 		mongoClient = new MongoClient();
@@ -56,31 +41,10 @@ public class MongoManager {
 		FindIterable<Document> iterable = mutable_db.getCollection(tableName).find();
 		return iterable;
 	}
-		
-	// Move a rule from the rules table to the retired_rules one
-	// And move the related metric from the metrics_mode table to the retired_metrics_mode table 
-	// OK
-	private void retireRuleAndMetrics(double rule_id){
-		FindIterable<Document> rule = mutable_db.getCollection(RULES).find(new Document("rule_id", rule_id));
-		Document env_state = (Document) ((List<Object>) rule.first().get("environment_state")).get(0);
-		double metric_id = (double) env_state.get("metric_value");
-		
-		FindIterable<Document> metric = mutable_db.getCollection(METRICS).find(new Document("mode", metric_id));
-				
-		MongoCollection<Document> ruleCollection = mutable_db.getCollection(RETIRED_RULES);
-		ruleCollection.insertOne(rule.first());
-		
-		MongoCollection<Document> metricCollection = mutable_db.getCollection(RETIRED_METRICS);
-		metricCollection.insertOne(metric.first());
-		
-		mutable_db.getCollection(RULES).deleteOne(new Document("rule_id", rule_id));
-		mutable_db.getCollection(METRICS).deleteOne(new Document("mode", metric_id));
-	}
 	
-	private void deleteRuleAndMetrics(List<String> config){
+	private void deleteConfigInRule(List<String> config){
 		final String invalidConfiguration = ConfigurationValidator.formatConfiguration(config);
 		
-		final List<ObjectId> rulesToDelete = new ArrayList<ObjectId>();
 		FindIterable<Document> iterable = getAllElements(RULES);
 		iterable.forEach(new Block<Document>() {
 		    @Override
@@ -89,17 +53,14 @@ public class MongoManager {
 		        String formattedConfigurationFromDB = ConfigurationValidator.formatConfiguration(configuration);
 		        if (formattedConfigurationFromDB.equalsIgnoreCase(invalidConfiguration)) {
 		        	ObjectId _id = (ObjectId) document.get("_id");
-					rulesToDelete.add(_id);
+		        	mutable_db.getCollection(RULES).updateOne(new Document("_id", _id),
+		        	        new Document("$set", new Document("configuration", null)));
 				}
 		    }
 		});		
-		for (ObjectId _id : rulesToDelete) {
-			mutable_db.getCollection(RULES).deleteOne((new Document("_id", _id)));
-		}
 	}
 	
-	// Add a rule in the rules table
-	// OK!
+	// Not used yet
 	private void addRule(Rule rule) {
 		mutable_db.getCollection(RULES).insertOne(
 				new Document()
@@ -114,8 +75,7 @@ public class MongoManager {
 				);
 	}
 	
-	// Add a new reward value
-	// OK!
+	// Not used yet
 	private void addReward(String environment, String config, String req_name, double req_value) {
 		mutable_db.getCollection(REWARDS).insertOne(
 				new Document()
@@ -129,8 +89,10 @@ public class MongoManager {
 				);
 	}
 	
-	// Delete a reward tuple related to the given configuration
-	// OK!
+	/**
+	 *  Delete a reward tuple related to the given @param invalidConfiguration
+	 * @param invalidConfiguration
+	 */
 	private void deleteRewardWhereConfigIs(String invalidConfiguration){
 		final String formattedInvalidConfig = ConfigurationValidator.formatConfiguration(invalidConfiguration);
 		
@@ -153,7 +115,7 @@ public class MongoManager {
 	}
 	
 	// Delete a reward tuple related to the given feature
-	// OK!
+	// Not used yet
 	private void deleteRewardContainingFeature(final String removedFeature){
 		final List<ObjectId> tuplesTodelete = new ArrayList<ObjectId>();
 		FindIterable<Document> iterable = getAllElements(REWARDS);
@@ -206,7 +168,7 @@ public class MongoManager {
 		for (List<String> config : invalidConfigurations) {
 			String listAsString = ConfigurationValidator.formatConfiguration(config);
 			deleteRewardWhereConfigIs(listAsString);
-			deleteRuleAndMetrics(config);
+			deleteConfigInRule(config);
 		}
 		
 		
