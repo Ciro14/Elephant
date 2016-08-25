@@ -81,7 +81,6 @@ public class MongoManager {
 		final String invalidConfiguration = ConfigurationValidator.formatConfiguration(config);
 		
 		final List<ObjectId> rulesToDelete = new ArrayList<ObjectId>();
-		final List<Integer> metricsToDelete = new ArrayList<Integer>();
 		FindIterable<Document> iterable = getAllElements(RULES);
 		iterable.forEach(new Block<Document>() {
 		    @Override
@@ -91,17 +90,11 @@ public class MongoManager {
 		        if (formattedConfigurationFromDB.equalsIgnoreCase(invalidConfiguration)) {
 		        	ObjectId _id = (ObjectId) document.get("_id");
 					rulesToDelete.add(_id);
-					Document env_state = (Document) ((List<Object>) document.get("environment_state")).get(0);
-					int metric_id = (int) env_state.get("metric_value");
-					metricsToDelete.add(metric_id);
 				}
 		    }
 		});		
 		for (ObjectId _id : rulesToDelete) {
 			mutable_db.getCollection(RULES).deleteOne((new Document("_id", _id)));
-		}
-		for (double metric_id : metricsToDelete) {
-			mutable_db.getCollection(METRICS).deleteOne((new Document("mode", metric_id)));
 		}
 	}
 	
