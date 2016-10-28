@@ -1,0 +1,4 @@
+[
+{"id":"cpu","url":"http://localhost:54782/sensor/cpu","interval":1000},
+{"id":"completeness","url":"http://localhost:54782/sensor/completeness","interval":1000}
+]

@@ -1,0 +1,79 @@
+{
+    "environment_definition":[
+        {
+            "metricid" : "completeness"
+        }
+    ],
+    "metrics_mode":[
+        {
+            "metric_id" : "completeness",
+            "mode" : 1.0,
+            "min_value" : 0,
+            "max_value" : 35.0
+        },
+        {
+            "metric_id" : "completeness",
+            "mode" : 2.0,
+            "min_value" : 35.0,
+            "max_value" : 60.0
+        },
+        {
+            "metric_id" : "completeness",
+            "mode" : 3.0,
+            "min_value" : 60,
+            "max_value" : 100
+        }
+    ],
+    "requirement_definition":[
+        {
+            "req_name" : "completeness",
+            "expected_value_min" : 50.0,
+            "expected_value_max" : 80.0,
+            "metric_id" : "completeness"
+        }
+    ],
+    "rules":[
+        {
+            "configuration" : [
+                "screensaver",
+                "quality"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 3.0
+                }
+            ],
+            "rule_id" : 3.0
+        },
+        {
+            "configuration" : [
+                "screensaver",
+                "balanced"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 2.0
+                }
+            ],
+            "rule_id" : 2.0
+        },
+        {
+            "configuration" : [
+                "screensaver",
+                "speed"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 1.0
+                }
+            ],
+            "rule_id" : 1.0
+        }
+    ]
+}

@@ -1,0 +1,119 @@
+{
+    "environment_definition":[
+        {
+            "metricid" : "completeness"
+        }
+    ],
+    "metrics_mode":[
+        {
+            "metric_id" : "completeness",
+            "mode" : 1.0,
+            "min_value" : 0,
+            "max_value" : 20.0
+        },
+        {
+            "metric_id" : "completeness",
+            "mode" : 2.0,
+            "min_value" : 20.0,
+            "max_value" : 40.0
+        },
+        {
+            "metric_id" : "completeness",
+            "mode" : 3.0,
+            "min_value" : 40,
+            "max_value" : 60
+        },
+	{
+            "metric_id" : "completeness",
+            "mode" : 4.0,
+            "min_value" : 60,
+            "max_value" : 80
+        },
+	{
+            "metric_id" : "completeness",
+            "mode" : 5.0,
+            "min_value" : 80,
+            "max_value" : 100
+        }
+    ],
+    "requirement_definition":[
+        {
+            "req_name" : "completeness",
+            "expected_value_min" : 40.0,
+            "expected_value_max" : 90.0,
+            "metric_id" : "completeness"
+        }
+    ],
+    "rules":[
+	{
+            "configuration" : [
+                "screensaver",
+                "quality_high"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 5.0
+                }
+            ],
+            "rule_id" : 5.0
+        },
+        {
+            "configuration" : [
+                "screensaver",
+                "quality_low"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 4.0
+                }
+            ],
+            "rule_id" : 4.0
+        },
+        {
+            "configuration" : [
+                "screensaver",
+                "balanced"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 3.0
+                }
+            ],
+            "rule_id" : 3.0
+        },
+	{
+            "configuration" : [
+                "screensaver",
+                "speed_high"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 2.0
+                }
+            ],
+            "rule_id" : 2.0
+        },
+        {
+            "configuration" : [
+                "screensaver",
+                "speed_low"
+            ],
+            "environment_state" : [
+                {
+                    "metric_id" : "completeness",
+                    "operator" : "=",
+                    "metric_value" : 1.0
+                }
+            ],
+            "rule_id" : 1.0
+        }
+    ]
+}
